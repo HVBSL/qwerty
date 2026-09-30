@@ -823,6 +823,10 @@ input:where([type='file']):focus {
   pointer-events: none;
 }
 
+.visible {
+  visibility: visible;
+}
+
 .fixed {
   position: fixed;
 }
@@ -2121,7 +2125,6 @@ body {
   font-variation-settings: 'wght' 900;
   font-weight: 900;
   transform-origin: center center;
-  transition: font-weight 0.18s ease-out, transform 0.18s ease-out, color 0.25s ease;
   will-change: font-weight, transform, color;
 }
 

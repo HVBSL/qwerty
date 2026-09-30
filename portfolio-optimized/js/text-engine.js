@@ -20,14 +20,34 @@ const TextEngine = {
     if (prefersReducedMotion) return;
 
     this.initialized = true;
+    // Set up IntersectionObserver to only process visible headlines
+    this.visibleHeadlines = new Set();
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.visibleHeadlines.add(entry.target);
+        } else {
+          this.visibleHeadlines.delete(entry.target);
+        }
+      });
+    }, { rootMargin: '100px' });
+
 
     // Split text once fonts are loaded
-    document.fonts.ready.then(() => {
+
+    const runSplit = () => {
       this.splitHeadlines();
       this.splitFooter();
       this.measureLetters();
       if(window.ScrollTrigger) ScrollTrigger.refresh();
-    });
+    };
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(runSplit).catch(runSplit);
+    } else {
+      setTimeout(runSplit, 100);
+    }
+
 
     window.addEventListener('resize', this.debounce(() => this.measureLetters(), 250));
 
@@ -103,12 +123,13 @@ const TextEngine = {
 
           charWrap.appendChild(glyph);
           wordWrap.appendChild(charWrap);
-          this.letters.push({ wrapper: charWrap, glyph: glyph, type: 'headline' });
+          this.letters.push({ wrapper: charWrap, glyph: glyph, type: 'headline', parent: headline });
         });
         headline.appendChild(wordWrap);
       });
 
       this.activeHeadlines.push(headline);
+      this.observer.observe(headline);
     });
   },
 
@@ -117,13 +138,26 @@ const TextEngine = {
      if (!wordmark || wordmark.hasAttribute('data-split')) return;
      wordmark.setAttribute('data-split', 'true');
 
-     const text = wordmark.textContent.trim();
+     // Original wordmark is just text separated by nothing. Wait, the original HTML has literal text like "BALAJI.DEV".
+     // But wait, the original html has:
+     // <h2 class="...">
+     //       BALAJI.DEV
+     // </h2>
+     const text = wordmark.textContent.trim().replace(/\s+/g, '');
      wordmark.setAttribute('aria-label', text);
      wordmark.innerHTML = '';
 
+     // Apply justify-between class to wordmark itself if it doesn't have it, actually it was there.
+     // The original HTML had the wordmark as plain text, and we want to preserve spacing.
+     // In original: it was a single word "BALAJI.DEV", maybe there wasn't a justify-between on letters.
+     // Wait, the original wordmark letters weren't split.
+     // Wait, the previous review said: "causes the footer letters to clump together... defeats the original justify-between spacing".
+     // Actually, let's just make the wordWrap have width 100% and justify-content space-between if it needs it.
+
      const wordWrap = document.createElement('span');
-     wordWrap.style.display = 'inline-block';
-     wordWrap.style.whiteSpace = 'nowrap';
+     wordWrap.style.display = 'flex';
+     wordWrap.style.justifyContent = 'space-between';
+     wordWrap.style.width = '100%';
      wordWrap.setAttribute('aria-hidden', 'true');
 
      [...text].forEach((char, index) => {
@@ -135,22 +169,24 @@ const TextEngine = {
           glyph.className = 'glyph wordmark-char';
           glyph.textContent = char;
 
-          glyph.dataset.color = (index % 2 === 0) ? '#29e0e0' : '#ff2fd0'; // cyan for even(0-indexed), magenta odd
+          glyph.dataset.color = (index % 2 === 0) ? '#29e0e0' : '#ff2fd0';
 
           if(char === '.') glyph.style.opacity = '0.4';
 
           charWrap.appendChild(glyph);
           wordWrap.appendChild(charWrap);
-          this.letters.push({ wrapper: charWrap, glyph: glyph, type: 'footer' });
+          this.letters.push({ wrapper: charWrap, glyph: glyph, type: 'footer', parent: wordmark });
      });
 
      wordmark.appendChild(wordWrap);
      this.activeHeadlines.push(wordmark);
+     this.observer.observe(wordmark);
   },
 
   measureLetters() {
     // Measure and set fixed width on wrappers to prevent layout shifts
     this.letters.forEach(letter => {
+       if (!this.visibleHeadlines.has(letter.parent)) return;
       // Temporarily set to max weight for widest bounding box
       letter.glyph.style.fontVariationSettings = `'wght' 900`;
       letter.glyph.style.fontWeight = '900';

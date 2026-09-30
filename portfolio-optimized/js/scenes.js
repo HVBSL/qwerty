@@ -421,13 +421,32 @@ const MainApp = {
        if(!window.gsap) return;
 
        // Lenis Setup
-       this.lenis = new Lenis({
+       if (typeof window.Lenis !== 'undefined') {
+          this.lenis = new window.Lenis({
           duration: 1.2,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           orientation: 'vertical',
           gestureOrientation: 'vertical',
           smoothWheel: true,
        });
+       } else if (typeof window.studioFreight !== 'undefined' && window.studioFreight.Lenis) {
+          this.lenis = new window.studioFreight.Lenis({
+             duration: 1.2,
+             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+             orientation: 'vertical',
+             gestureOrientation: 'vertical',
+             smoothWheel: true,
+          });
+       } else {
+          console.warn("Lenis is not loaded");
+          this.lenis = {
+             on: () => {},
+             raf: () => {},
+             scrollTo: () => {},
+             start: () => {},
+             stop: () => {}
+          };
+       }
 
        if(window.ScrollTrigger) {
            this.lenis.on('scroll', ScrollTrigger.update);
