@@ -21,15 +21,16 @@ function App() {
   };
 
   const services = [
-    { num: "01", title: "Frontend Architecture", desc: "Building scalable, performant client-side applications using React ecosystem and modern state management." },
-    { num: "02", title: "Backend Systems", desc: "Designing robust APIs and microservices with Node.js, ASP.NET Core, and optimized database structures." },
-    { num: "03", title: "3D & WebGL Integration", desc: "Crafting immersive browser experiences using Three.js, React Three Fiber, and custom shaders." }
+    { num: "01", category: "Front & Apps", title: "WEBSITES & WEB APPS", desc: "Custom business websites, dashboards and internal tools built with React and modern full-stack practices.", tags: ["React", "Node.js", "JavaScript"] },
+    { num: "02", category: "Scalability & DB", title: "BACKEND APIS & SQL OPTIMIZATION", desc: "Scalable ASP.NET Core REST APIs with clean validation and logging, plus SQL and stored-procedure tuning that has cut API response times by 30-50%.", tags: ["ASP.NET Core", "MSSQL", "REST APIs", "Jenkins"] },
+    { num: "03", category: "CMS & Web", title: "WORDPRESS SITES", desc: "Custom WordPress websites and community platforms with PHP, CSS and hosting handled end to end.", tags: ["WordPress", "PHP", "CSS", "Hosting"] }
   ];
 
   const projects = [
-    { title: "Defi Exchange Platform", role: "Lead Frontend Engineer", tech: "React, Web3.js, Tailwind" },
-    { title: "Enterprise Resource Planner", role: "Full-Stack Developer", tech: "ASP.NET Core, MSSQL, React" },
-    { title: "Interactive Brand Site", role: "Creative Technologist", tech: "Three.js, GSAP, Node.js" }
+    { title: "STUDENT COMMUNITY PLATFORM", role: "Case Study ↗", tech: "WordPress, PHP, CSS, Hosting" },
+    { title: "ONLINE CODE EDITOR", role: "Case Study ↗", tech: "React, Node.js, CodeMirror, JavaScript" },
+    { title: "AI INVENTORY SYSTEM", role: "Case Study ↗", tech: "Python, Flask, SQL, AI Assistant" },
+    { title: "DROWSINESS DETECTION SYSTEM", role: "Case Study ↗", tech: "Python, OpenCV, ML" }
   ];
 
   return (
@@ -61,19 +62,52 @@ function App() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="text-[clamp(3rem,8vw,8rem)] font-bold mb-6 tracking-tighter leading-none"
+            className="text-[clamp(3rem,8vw,8rem)] font-bold tracking-tighter leading-none"
             style={{ fontFamily: "'Space Mono', monospace" }}
           >
-            Balaji S.
+            DEVELOPER.
           </motion.h1>
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="text-xl md:text-3xl text-gray-400 mb-10 max-w-2xl mx-auto font-light"
+            transition={{ duration: 1, delay: 0.3 }}
+            className="font-mono text-xs text-gray-500 uppercase tracking-widest mt-6 mb-6"
           >
-            Full-Stack Developer crafting digital experiences. <span className="text-[#29e0e0] opacity-80 text-sm hidden md:inline-block">Click background for magic.</span>
+            Chennai · Remote · Worldwide
           </motion.p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="text-sm md:text-base text-gray-400 mb-10 max-w-2xl mx-auto font-mono leading-relaxed"
+          >
+            Hi! I'm Balaji, a Chennai-based freelance full-stack developer. I've spent 2+ years building and supporting enterprise production systems, and now I help small businesses launch fast, reliable websites, web apps and backends.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.7 }}
+            className="text-sm text-gray-400 mb-8 max-w-xl mx-auto text-left font-mono border-l border-gray-800 pl-4 space-y-2"
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-[#29e0e0]">■</span>
+              <span>SQL tuning that cut latency 30–50%</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[#7a3cff]">■</span>
+              <span>End-to-end built, shipped & maintained</span>
+            </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="pointer-events-auto"
+          >
+            <a href="#contact" className="inline-block px-8 py-4 bg-transparent border border-[#29e0e0] text-[#29e0e0] rounded-full hover:bg-[#29e0e0] hover:text-black transition-all duration-300 font-mono uppercase tracking-widest text-sm">
+              Start Project
+            </a>
+          </motion.div>
         </div>
 
         {/* Scroll Indicator */}
@@ -103,11 +137,19 @@ function App() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: i * 0.2 }}
-              className="p-8 border border-gray-800 rounded-2xl hover:border-[#29e0e0] transition-colors group bg-[#111113]"
+              className="p-8 border border-gray-800 rounded-2xl hover:border-[#29e0e0] transition-colors group bg-[#111113] flex flex-col justify-between"
             >
-              <div className="text-4xl font-mono text-gray-700 group-hover:text-[#29e0e0] transition-colors mb-6">{service.num}</div>
-              <h4 className="text-xl font-bold mb-4">{service.title}</h4>
-              <p className="text-gray-400 leading-relaxed">{service.desc}</p>
+              <div className="flex items-center justify-between font-mono text-xs mb-8">
+                <span className="text-[#29e0e0] font-bold tracking-widest text-sm">/{service.num}</span>
+                <span className="px-2 py-0.5 rounded bg-black text-gray-500 border border-[#222] text-[10px] uppercase">{service.category}</span>
+              </div>
+              <h4 className="text-2xl font-bold mb-4 font-display tracking-wide">{service.title}</h4>
+              <p className="text-gray-400 text-sm leading-relaxed mb-6">{service.desc}</p>
+              <div className="flex flex-wrap gap-2 mt-auto">
+                {service.tags && service.tags.map(tag => (
+                  <span key={tag} className="px-2 py-1 rounded bg-[#070709] text-white border border-[#262626] font-mono text-[10px]">{tag}</span>
+                ))}
+              </div>
             </motion.div>
           ))}
         </div>
@@ -154,7 +196,7 @@ function App() {
         </div>
       </section>
 
-      {/* Selected Work (Horizontal Accordion approximation) */}
+      {/* Selected Work */}
       <section id="work" className="py-32 px-8 max-w-7xl mx-auto">
         <div className="mb-20">
           <h2 className="text-sm uppercase tracking-widest text-[#ff2fd0] mb-4">Portfolio</h2>
@@ -187,20 +229,20 @@ function App() {
       <section className="py-20 border-y border-gray-900 bg-[#050505]">
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-12 text-center divide-x divide-gray-900">
           <div>
-            <div className="text-5xl font-bold mb-2 text-[#29e0e0]">5+</div>
-            <div className="text-sm text-gray-500 uppercase tracking-widest">Years Exp</div>
+            <div className="text-5xl font-bold mb-2 text-[#29e0e0] flex justify-center items-baseline"><span className="text-6xl">30-50</span><span className="text-4xl">%</span></div>
+            <div className="text-sm text-gray-500 uppercase tracking-widest">API improvement</div>
           </div>
           <div>
-            <div className="text-5xl font-bold mb-2 text-[#29e0e0]">40+</div>
-            <div className="text-sm text-gray-500 uppercase tracking-widest">Projects</div>
+            <div className="text-5xl font-bold mb-2 text-[#29e0e0] flex justify-center items-baseline"><span className="text-6xl">2</span><span className="text-[#7a3cff]">+</span></div>
+            <div className="text-sm text-gray-500 uppercase tracking-widest">years experience</div>
           </div>
           <div>
-            <div className="text-5xl font-bold mb-2 text-[#29e0e0]">100%</div>
-            <div className="text-sm text-gray-500 uppercase tracking-widest">Delivery</div>
+            <div className="text-5xl font-bold mb-2 text-[#29e0e0]"><span className="text-6xl text-white">CI/CD</span></div>
+            <div className="text-sm text-gray-500 uppercase tracking-widest">Jenkins pipelines</div>
           </div>
           <div>
-            <div className="text-5xl font-bold mb-2 text-[#29e0e0]">24/7</div>
-            <div className="text-sm text-gray-500 uppercase tracking-widest">Support</div>
+            <div className="text-5xl font-bold mb-2 text-[#29e0e0]"><span className="text-6xl text-white">ENTERPRISE</span></div>
+            <div className="text-sm text-gray-500 uppercase tracking-widest">systems supported</div>
           </div>
         </div>
       </section>
