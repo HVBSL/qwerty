@@ -1,0 +1,271 @@
+{
+  "original": "/home/qwerty/Qwerty_WorkSpace/sample/portfolio/index (1).html",
+  "optimized": "/home/qwerty/Qwerty_WorkSpace/sample/portfolio/portfolio-optimized/index.html",
+  "generatedAt": "2026-10-01T04:22:09.212Z",
+  "widths": {
+    "375": {
+      "sweeps": [
+        {
+          "label": "hero headline",
+          "rectCalls": 0,
+          "rectPerPointerEvent": 0,
+          "pointerEvents": 80,
+          "shiftEntries": 0,
+          "shiftValue": 0,
+          "longFrames": 44,
+          "maxFrameMs": 183.3,
+          "avgFrameMs": 108.71
+        },
+        {
+          "label": "section headline",
+          "rectCalls": 0,
+          "rectPerPointerEvent": 0,
+          "pointerEvents": 80,
+          "shiftEntries": 0,
+          "shiftValue": 0,
+          "longFrames": 8,
+          "maxFrameMs": 133.4,
+          "avgFrameMs": 29.58
+        },
+        {
+          "label": "footer wordmark",
+          "rectCalls": 0,
+          "rectPerPointerEvent": 0,
+          "pointerEvents": 80,
+          "shiftEntries": 0,
+          "shiftValue": 0,
+          "longFrames": 5,
+          "maxFrameMs": 83.4,
+          "avgFrameMs": 22.99
+        }
+      ],
+      "originalSweeps": [
+        {
+          "label": "hero headline",
+          "rectCalls": 2480,
+          "rectPerPointerEvent": 31,
+          "pointerEvents": 80,
+          "shiftEntries": 26,
+          "shiftValue": 0.003515,
+          "longFrames": 52,
+          "maxFrameMs": 483.3,
+          "avgFrameMs": 163.91
+        },
+        {
+          "label": "section headline",
+          "rectCalls": 2480,
+          "rectPerPointerEvent": 31,
+          "pointerEvents": 80,
+          "shiftEntries": 21,
+          "shiftValue": 0.003287,
+          "longFrames": 49,
+          "maxFrameMs": 866.7,
+          "avgFrameMs": 155.32
+        },
+        {
+          "label": "footer wordmark",
+          "rectCalls": 2480,
+          "rectPerPointerEvent": 31,
+          "pointerEvents": 80,
+          "shiftEntries": 32,
+          "shiftValue": 0.009232,
+          "longFrames": 8,
+          "maxFrameMs": 433.3,
+          "avgFrameMs": 78.66
+        }
+      ],
+      "originalScreenshot": "scripts/screenshots/original_375.png",
+      "originalErrors": [],
+      "optimizedScreenshot": "scripts/screenshots/optimized_375.png",
+      "errors": [],
+      "idle": {
+        "rafRegisteredWhileIdle": 150,
+        "loopHz": 97.2,
+        "textEngineRunning": false,
+        "scenes": [
+          false,
+          false,
+          false
+        ],
+        "allScenesOffscreen": true,
+        "canvases": 3
+      }
+    },
+    "768": {
+      "sweeps": [
+        {
+          "label": "hero headline",
+          "rectCalls": 0,
+          "rectPerPointerEvent": 0,
+          "pointerEvents": 80,
+          "shiftEntries": 2,
+          "shiftValue": 0.000158,
+          "longFrames": 48,
+          "maxFrameMs": 116.6,
+          "avgFrameMs": 73.13
+        },
+        {
+          "label": "section headline",
+          "rectCalls": 0,
+          "rectPerPointerEvent": 0,
+          "pointerEvents": 80,
+          "shiftEntries": 1,
+          "shiftValue": 0.000105,
+          "longFrames": 11,
+          "maxFrameMs": 116.7,
+          "avgFrameMs": 31.45
+        },
+        {
+          "label": "footer wordmark",
+          "rectCalls": 0,
+          "rectPerPointerEvent": 0,
+          "pointerEvents": 80,
+          "shiftEntries": 4,
+          "shiftValue": 0.000482,
+          "longFrames": 0,
+          "maxFrameMs": 50,
+          "avgFrameMs": 19.25
+        }
+      ],
+      "originalSweeps": [
+        {
+          "label": "hero headline",
+          "rectCalls": 2480,
+          "rectPerPointerEvent": 31,
+          "pointerEvents": 80,
+          "shiftEntries": 31,
+          "shiftValue": 0.012763,
+          "longFrames": 48,
+          "maxFrameMs": 366.7,
+          "avgFrameMs": 128.47
+        },
+        {
+          "label": "section headline",
+          "rectCalls": 2480,
+          "rectPerPointerEvent": 31,
+          "pointerEvents": 80,
+          "shiftEntries": 28,
+          "shiftValue": 0.012302,
+          "longFrames": 47,
+          "maxFrameMs": 750,
+          "avgFrameMs": 147.98
+        },
+        {
+          "label": "footer wordmark",
+          "rectCalls": 2480,
+          "rectPerPointerEvent": 31,
+          "pointerEvents": 80,
+          "shiftEntries": 30,
+          "shiftValue": 0.0509,
+          "longFrames": 8,
+          "maxFrameMs": 416.6,
+          "avgFrameMs": 83.68
+        }
+      ],
+      "originalScreenshot": "scripts/screenshots/original_768.png",
+      "originalErrors": [],
+      "optimizedScreenshot": "scripts/screenshots/optimized_768.png",
+      "errors": [],
+      "idle": {
+        "rafRegisteredWhileIdle": 126,
+        "loopHz": 84,
+        "textEngineRunning": false,
+        "scenes": [
+          false,
+          false,
+          false
+        ],
+        "allScenesOffscreen": true,
+        "canvases": 3
+      }
+    },
+    "1440": {
+      "sweeps": [
+        {
+          "label": "hero headline",
+          "rectCalls": 0,
+          "rectPerPointerEvent": 0,
+          "pointerEvents": 82,
+          "shiftEntries": 1,
+          "shiftValue": 0.000028,
+          "longFrames": 47,
+          "maxFrameMs": 150,
+          "avgFrameMs": 86.52
+        },
+        {
+          "label": "section headline",
+          "rectCalls": 0,
+          "rectPerPointerEvent": 0,
+          "pointerEvents": 82,
+          "shiftEntries": 1,
+          "shiftValue": 0.000018,
+          "longFrames": 0,
+          "maxFrameMs": 33.4,
+          "avgFrameMs": 18.06
+        },
+        {
+          "label": "footer wordmark",
+          "rectCalls": 0,
+          "rectPerPointerEvent": 0,
+          "pointerEvents": 82,
+          "shiftEntries": 19,
+          "shiftValue": 0.002696,
+          "longFrames": 1,
+          "maxFrameMs": 50.1,
+          "avgFrameMs": 17.37
+        }
+      ],
+      "originalSweeps": [
+        {
+          "label": "hero headline",
+          "rectCalls": 2542,
+          "rectPerPointerEvent": 31,
+          "pointerEvents": 82,
+          "shiftEntries": 14,
+          "shiftValue": 0.020512,
+          "longFrames": 46,
+          "maxFrameMs": 366.6,
+          "avgFrameMs": 141.3
+        },
+        {
+          "label": "section headline",
+          "rectCalls": 2542,
+          "rectPerPointerEvent": 31,
+          "pointerEvents": 82,
+          "shiftEntries": 18,
+          "shiftValue": 0.004371,
+          "longFrames": 48,
+          "maxFrameMs": 833.3,
+          "avgFrameMs": 155.2
+        },
+        {
+          "label": "footer wordmark",
+          "rectCalls": 2542,
+          "rectPerPointerEvent": 31,
+          "pointerEvents": 82,
+          "shiftEntries": 43,
+          "shiftValue": 0.151594,
+          "longFrames": 46,
+          "maxFrameMs": 183.4,
+          "avgFrameMs": 110.51
+        }
+      ],
+      "originalScreenshot": "scripts/screenshots/original_1440.png",
+      "originalErrors": [],
+      "optimizedScreenshot": "scripts/screenshots/optimized_1440.png",
+      "errors": [],
+      "idle": {
+        "rafRegisteredWhileIdle": 186,
+        "loopHz": 124,
+        "textEngineRunning": false,
+        "scenes": [
+          false,
+          false,
+          true
+        ],
+        "allScenesOffscreen": false,
+        "canvases": 3
+      }
+    }
+  }
+}

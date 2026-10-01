@@ -1,0 +1,217 @@
+/*
+ * Custom CSS for the optimized static build.
+ * The rules below mirror the original inline <style> block one-to-one, with the
+ * animation-related pieces (Fix 1-4, Fix 6) re-expressed so that they no longer
+ * cause re-layout, flicker or jitter. No visual value has been changed.
+ */
+:root {
+  --bg: #000000;
+  --graphite: #0c0c0e;
+  --grad: linear-gradient(135deg, #ff2fd0, #7a3cff 40%, #29e0e0 80%, #fbbf24);
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: 'Space Mono', monospace;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+/* Proximity Headline Letter Engine Styling (Fix 2) */
+/* .char  -> outer box, width locked to the letter's width at wght 900.
+             Because this width never changes, neighbouring letters can never
+             move and the line can never reflow.
+   .glyph -> inner box that actually receives the weight / transform / colour
+             changes. It is centred inside .char and may overflow visually
+             without ever affecting layout. */
+.char {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  text-align: center;
+}
+.char > .glyph {
+  display: inline-block;
+  overflow: visible;
+  transform-origin: center center;
+  font-variation-settings: 'wght' 900;
+  font-weight: 900;
+  will-change: font-variation-settings, transform, color;
+}
+
+/* Word wrappers keep whole words together so lines only ever break between
+   words, never in the middle of one. */
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.prox-headline {
+  /* Touch drags may drive the effect, but must never block vertical scroll. */
+  touch-action: pan-y;
+}
+
+.prox-italic {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), letter-spacing 0.3s ease;
+  will-change: transform;
+}
+
+/* Giant Wordmark Outlined Letters (Fix 4)
+   The hover effect is now driven by the same proximity engine as the headlines,
+   so the ":hover + font-weight:100" feedback loop (which made a letter shrink,
+   leave the cursor and snap back) no longer exists. */
+.wordmark-char {
+  cursor: default;
+}
+#giantWordmark > .char > .glyph {
+  -webkit-text-stroke: 1px transparent;
+  paint-order: stroke fill;
+}
+#giantWordmark > .char > .glyph[data-stroke='cyan'] {
+  --wm-stroke: #29e0e0;
+  --wm-glow: rgba(41, 224, 224, 0.5);
+}
+#giantWordmark > .char > .glyph[data-stroke='magenta'] {
+  --wm-stroke: #ff2fd0;
+  --wm-glow: rgba(255, 47, 208, 0.5);
+}
+
+/* Gradient Border Wrap */
+.gradient-border-wrap {
+  position: relative;
+  background: #0c0c0e;
+  border-radius: 9999px;
+  z-index: 1;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+.gradient-border-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 9999px;
+  padding: 1px;
+  background: linear-gradient(90deg, #ff2fd0, #7a3cff, #29e0e0, #fbbf24, #ff2fd0);
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: borderShimmer 6s linear infinite;
+}
+@keyframes borderShimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.gradient-border-wrap:hover {
+  transform: translateY(-2px) scale(1.025);
+  box-shadow: 0 0 25px rgba(122, 60, 255, 0.35);
+}
+
+/* Section Curtain Arch */
+.curtain-section {
+  position: relative;
+  background: #000000;
+  z-index: 10;
+}
+.curtain-section.bg-graphite-tone {
+  background: #0c0c0e;
+}
+.arch-divider {
+  position: absolute;
+  top: -38px;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 20;
+}
+
+/* Horizontal Accordion for Projects */
+.accordion-track {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+@media (min-width: 1024px) {
+  .accordion-track {
+    flex-direction: row;
+    align-items: stretch;
+    height: 520px;
+  }
+  .accordion-item {
+    flex: 1;
+    transition: flex 0.5s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, background-color 0.3s ease;
+    overflow: hidden;
+  }
+  .accordion-item.is-expanded,
+  .accordion-item:hover {
+    flex: 2.3;
+  }
+}
+
+/* Staggered Service Cards hover dim siblings */
+.services-parent:hover .service-stagger-card:not(:hover) {
+  opacity: 0.55;
+  transform: scale(0.98);
+}
+.service-stagger-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, border-color 0.3s ease;
+}
+
+/* Scroll progress bar (Fix 6)
+   Was `width: 0 -> N%` on every scroll event, which forced a layout pass for the
+   whole document. It is now a composited transform driven by gsap/Lenis.
+
+   `width: 100%` is required, not cosmetic: the markup keeps the original
+   `w-0` utility (width: 0) so the body stays byte-identical to the source, and
+   `scaleX()` on a zero-width box renders nothing. This ID rule overrides that
+   class, giving the bar its full track width while progress is expressed purely
+   as a transform. No scroll-driven layout is reintroduced. */
+#scrollProgress {
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}
+
+/* Marquee Velocity Ribbon (Fix 6)
+   The CSS animation duration is now CONSTANT. Speed is changed through the Web
+   Animations API (playbackRate) instead of swapping animation-duration, which
+   used to restart/jump the running animation on every fast scroll. */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeRun 24s linear infinite;
+  will-change: transform;
+}
+@keyframes marqueeRun {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Reduced motion (spec): keep every piece of content fully visible and static. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+    will-change: auto;
+  }
+  .char > .glyph {
+    will-change: auto;
+  }
+  .gradient-border-wrap::before {
+    animation: none;
+  }
+  .prox-italic,
+  .accordion-item,
+  .service-stagger-card,
+  .gradient-border-wrap {
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

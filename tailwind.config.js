@@ -1,6 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./index.html", "./js/**/*.js"],
+  // Scan index.html AND every JS file: classes added at runtime by the
+  // filters, nav, modal and form state handlers must be present in the build.
+  content: ['./index.html', './js/**/*.js'],
   darkMode: 'class',
   theme: {
     extend: {
